@@ -1,9 +1,6 @@
 {
   "app": {
-    "[project]/proyectos/InmobiliariaLibra/app/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/proyectos/InmobiliariaLibra/app/propiedades/[id]/contrato/page": [
+    "[project]/proyectos/InmobiliariaLibra/app/admin/propiedades/[id]/editar/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
     "[project]/proyectos/InmobiliariaLibra/app/propiedades/[id]/page": [

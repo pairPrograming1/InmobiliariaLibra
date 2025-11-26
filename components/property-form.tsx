@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
+import Swal from "sweetalert2"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Plus, X, Upload, Loader2 } from "lucide-react"
-import type { PropertyWithDetails, Service } from "@/lib/types"
+import type { PropertyWithDetails, Service, PropertyImage } from "@/lib/types"
 import { useRouter } from "next/navigation"
 
 interface PropertyFormProps {
@@ -26,7 +27,19 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
   const [newService, setNewService] = useState("")
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
 
-  const [formData, setFormData] = useState({
+  type FormImage = Pick<PropertyImage, "cloudinary_url" | "cloudinary_public_id">
+  type FormState = {
+    title: string
+    description: string
+    square_meters: number
+    rental_price: number
+    expenses: number
+    rooms: { title: string; description: string }[] | { title: string; description: string }[]
+    service_ids: number[]
+    images: (PropertyImage | FormImage)[]
+  }
+
+  const [formData, setFormData] = useState<FormState>({
     title: property?.title || "",
     description: property?.description || "",
     square_meters: property?.square_meters || 0,
@@ -34,7 +47,7 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
     expenses: property?.expenses || 0,
     rooms: property?.rooms || [{ title: "", description: "" }],
     service_ids: property?.services.map((s) => s.id) || [],
-    images: property?.images || [],
+    images: (property?.images as (PropertyImage | FormImage)[]) || [],
   })
 
   useEffect(() => {
@@ -185,6 +198,8 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // Prevent multiple submits
+    if (loading) return
     setLoading(true)
 
     try {
@@ -198,17 +213,55 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
       })
 
       if (response.ok) {
+        // Success alert
+        await Swal.fire({
+          title: property ? "Propiedad actualizada" : "Propiedad creada",
+          text: property
+            ? "Los cambios se guardaron correctamente."
+            : "La propiedad se creó correctamente.",
+          icon: "success",
+          confirmButtonText: "Ver propiedades",
+        })
+
+        // Reset form only when creating new
+        if (!property) {
+          setFormData({
+            title: "",
+            description: "",
+            square_meters: 0,
+            rental_price: 0,
+            expenses: 0,
+            rooms: [{ title: "", description: "" }],
+            service_ids: [],
+            images: [],
+          })
+          setImagePreviews([])
+        }
+
+        // Callback if provided
         if (onSubmit) {
           onSubmit()
-        } else {
-          router.push("/admin")
         }
+
+        // Redirect to propiedades
+        router.push("/propiedades")
       } else {
-        alert("Error al guardar la propiedad")
+        const errText = await response.text().catch(() => "")
+        await Swal.fire({
+          title: "Error",
+          text: errText || "Error al guardar la propiedad",
+          icon: "error",
+          confirmButtonText: "Entendido",
+        })
       }
     } catch (error) {
       console.error("[v0] Error submitting property:", error)
-      alert("Error al guardar la propiedad")
+      await Swal.fire({
+        title: "Error",
+        text: "Hubo un problema al guardar la propiedad",
+        icon: "error",
+        confirmButtonText: "Entendido",
+      })
     } finally {
       setLoading(false)
     }
