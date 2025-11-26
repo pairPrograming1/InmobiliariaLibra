@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[37469,["/_next/static/chunks/48ce55efdc8a594f.js","/_next/static/chunks/8da23da7f08bb35f.js","/_next/static/chunks/4666ca2cc1ce5fa1.js","/_next/static/chunks/772a2dd9614a9c61.js"],"PropertyForm"]
+3:I[30314,["/_next/static/chunks/77fc78af581570d7.js","/_next/static/chunks/9a2fd32fce053b13.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"tLlJm6iLeqc22qmplkykF","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background","children":["$","div",null,{"className":"container mx-auto py-8 px-4","children":[["$","div",null,{"className":"mb-8","children":[["$","h1",null,{"className":"text-4xl font-bold text-foreground mb-2","children":"Panel de Administración"}],["$","p",null,{"className":"text-muted-foreground","children":"Carga una nueva propiedad en alquiler"}]]}],["$","$L2",null,{}]]}]}],[["$","script","script-0",{"src":"/_next/static/chunks/8da23da7f08bb35f.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/4666ca2cc1ce5fa1.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/772a2dd9614a9c61.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

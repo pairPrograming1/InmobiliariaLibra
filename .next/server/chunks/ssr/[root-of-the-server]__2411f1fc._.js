@@ -1,0 +1,13 @@
+module.exports=[30056,a=>a.a(async(b,c)=>{try{let b=await a.y("pg");a.n(b),c()}catch(a){c(a)}},!0),93695,(a,b,c)=>{b.exports=a.x("next/dist/shared/lib/no-fallback-error.external.js",()=>require("next/dist/shared/lib/no-fallback-error.external.js"))},59641,a=>{a.n(a.i(24289))},83585,a=>{a.n(a.i(49386))},10617,a=>{a.n(a.i(32130))},7729,a=>{a.n(a.i(25373))},40924,a=>{a.n(a.i(63928))},90128,a=>{"use strict";let b=(0,a.i(56498).registerClientReference)(function(){throw Error("Attempted to call PropertyForm() from the server but PropertyForm is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/proyectos/InmobiliariaLibra/components/property-form.tsx <module evaluation>","PropertyForm");a.s(["PropertyForm",0,b])},7641,a=>{"use strict";let b=(0,a.i(56498).registerClientReference)(function(){throw Error("Attempted to call PropertyForm() from the server but PropertyForm is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/proyectos/InmobiliariaLibra/components/property-form.tsx","PropertyForm");a.s(["PropertyForm",0,b])},10928,a=>{"use strict";a.i(90128);var b=a.i(7641);a.n(b)},83433,a=>a.a(async(b,c)=>{try{var d=a.i(89270),e=a.i(35943),f=a.i(10928);a.i(12157);var g=a.i(14317),h=b([e]);async function i(a){try{if(!e.sql)return console.log("Database not configured yet"),null;let b=(await e.sql`
+      SELECT * FROM properties WHERE id = ${a}
+    `)[0];if(!b)return null;let c=await e.sql`
+      SELECT * FROM rooms WHERE property_id = ${a}
+    `,d=await e.sql`
+      SELECT * FROM property_images WHERE property_id = ${a} ORDER BY display_order
+    `,f=await e.sql`
+      SELECT s.* FROM services s
+      JOIN property_services ps ON s.id = ps.service_id
+      WHERE ps.property_id = ${a}
+    `;return{id:b.id,title:b.title,description:b.description,square_meters:b.square_meters,rental_price:b.rental_price,expenses:b.expenses,created_at:b.created_at,updated_at:b.updated_at,rooms:c,images:d,services:f}}catch(a){return console.error("[v0] Error fetching property:",a),null}}async function j({params:a}){let{id:b}=await a,c=await i(b);return c||(0,g.notFound)(),(0,d.jsx)("div",{className:"min-h-screen bg-background",children:(0,d.jsxs)("div",{className:"container mx-auto px-4 py-8",children:[(0,d.jsx)("h1",{className:"text-3xl md:text-4xl font-bold text-foreground mb-8",children:"Editar Propiedad"}),(0,d.jsx)(f.PropertyForm,{property:c})]})})}[e]=h.then?(await h)():h,a.s(["default",()=>j]),c()}catch(a){c(a)}},!1)];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__2411f1fc._.js.map

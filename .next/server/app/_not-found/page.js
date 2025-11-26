@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__04be637c._.js")
+R.c("server/chunks/ssr/c1eb3_next_dist_ad3c7de4._.js")
+R.c("server/chunks/ssr/c1eb3_next_dist_esm_build_templates_app-page_8f963b93.js")
+R.c("server/chunks/ssr/[root-of-the-server]__721bfd91._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__8c8c1fb8._.js")
+R.c("server/chunks/ssr/c1eb3_next_dist_0ca28a55._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__5f81cb74._.js")
+R.c("server/chunks/ssr/c1eb3_next_dist_client_components_cdbd629e._.js")
+R.c("server/chunks/ssr/c1eb3_next_dist_client_components_builtin_forbidden_3c0d9faf.js")
+R.c("server/chunks/ssr/26b32_InmobiliariaLibra__next-internal_server_app__not-found_page_actions_84c09722.js")
+R.m(8343)
+module.exports=R.m(8343).exports

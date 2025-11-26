@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/page": "/admin",
+  "/admin/propiedades/[id]/editar/page": "/admin/propiedades/[id]/editar",
+  "/api/properties/[id]/pdf/route": "/api/properties/[id]/pdf",
+  "/api/properties/[id]/route": "/api/properties/[id]",
+  "/api/properties/route": "/api/properties",
+  "/api/services/route": "/api/services",
+  "/api/upload/route": "/api/upload",
+  "/page": "/",
+  "/propiedades/[id]/contrato/page": "/propiedades/[id]/contrato",
+  "/propiedades/[id]/page": "/propiedades/[id]",
+  "/propiedades/page": "/propiedades"
+}
