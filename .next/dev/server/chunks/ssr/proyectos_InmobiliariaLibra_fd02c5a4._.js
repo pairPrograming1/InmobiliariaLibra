@@ -175,14 +175,62 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLib
 var __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/proyectos/InmobiliariaLibra/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-ssr] (ecmascript) <export default as MapPin>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$maximize$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Maximize2$3e$__ = __turbopack_context__.i("[project]/proyectos/InmobiliariaLibra/node_modules/lucide-react/dist/esm/icons/maximize-2.js [app-ssr] (ecmascript) <export default as Maximize2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/proyectos/InmobiliariaLibra/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/proyectos/InmobiliariaLibra/node_modules/next/navigation.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/proyectos/InmobiliariaLibra/node_modules/sweetalert2/dist/sweetalert2.esm.all.js [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
 ;
 ;
 ;
+;
+;
 function PropertyCard({ property }) {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const mainImage = property.images[0]?.cloudinary_url || "/departamento.jpg";
+    const handleEdit = (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        router.push(`/admin/propiedades/${property.id}/editar`);
+    };
+    const handleDelete = async (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const result = await __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: "¿Eliminar propiedad?",
+            text: `Se eliminará "${property.title}" permanentemente`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#ef4444"
+        });
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`/api/properties/${property.id}`, {
+                    method: "DELETE"
+                });
+                if (response.ok) {
+                    await __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+                        title: "Eliminada",
+                        text: "La propiedad se eliminó correctamente",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    });
+                    router.refresh();
+                } else {
+                    throw new Error("Error al eliminar");
+                }
+            } catch (error) {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+                    title: "Error",
+                    text: "No se pudo eliminar la propiedad",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         href: `/propiedades/${property.id}`,
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
@@ -197,7 +245,7 @@ function PropertyCard({ property }) {
                             className: "w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                         }, void 0, false, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 20,
+                            lineNumber: 72,
                             columnNumber: 11
                         }, this),
                         property.images.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -209,13 +257,13 @@ function PropertyCard({ property }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 26,
+                            lineNumber: 78,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                    lineNumber: 19,
+                    lineNumber: 71,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -226,7 +274,7 @@ function PropertyCard({ property }) {
                             children: property.title
                         }, void 0, false, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 33,
+                            lineNumber: 85,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -234,7 +282,7 @@ function PropertyCard({ property }) {
                             children: property.description
                         }, void 0, false, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 35,
+                            lineNumber: 87,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -248,7 +296,7 @@ function PropertyCard({ property }) {
                                             className: "h-3 w-3"
                                         }, void 0, false, {
                                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                            lineNumber: 39,
+                                            lineNumber: 91,
                                             columnNumber: 15
                                         }, this),
                                         property.square_meters,
@@ -256,7 +304,7 @@ function PropertyCard({ property }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                    lineNumber: 38,
+                                    lineNumber: 90,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Badge"], {
@@ -267,20 +315,20 @@ function PropertyCard({ property }) {
                                             className: "h-3 w-3"
                                         }, void 0, false, {
                                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                            lineNumber: 43,
+                                            lineNumber: 95,
                                             columnNumber: 15
                                         }, this),
                                         property.rooms.length
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                    lineNumber: 42,
+                                    lineNumber: 94,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 37,
+                            lineNumber: 89,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -295,7 +343,7 @@ function PropertyCard({ property }) {
                                                 children: "Alquiler"
                                             }, void 0, false, {
                                                 fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                                lineNumber: 51,
+                                                lineNumber: 103,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -306,13 +354,13 @@ function PropertyCard({ property }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                                lineNumber: 52,
+                                                lineNumber: 104,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                        lineNumber: 50,
+                                        lineNumber: 102,
                                         columnNumber: 15
                                     }, this),
                                     property.expenses > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -323,7 +371,7 @@ function PropertyCard({ property }) {
                                                 children: "Expensas"
                                             }, void 0, false, {
                                                 fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                                lineNumber: 56,
+                                                lineNumber: 108,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -334,24 +382,24 @@ function PropertyCard({ property }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                                lineNumber: 57,
+                                                lineNumber: 109,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                        lineNumber: 55,
+                                        lineNumber: 107,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                lineNumber: 49,
+                                lineNumber: 101,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 48,
+                            lineNumber: 100,
                             columnNumber: 11
                         }, this),
                         property.services.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -362,7 +410,7 @@ function PropertyCard({ property }) {
                                     children: "Servicios"
                                 }, void 0, false, {
                                     fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 117,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -373,7 +421,7 @@ function PropertyCard({ property }) {
                                                 children: service.name
                                             }, service.id, false, {
                                                 fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                                lineNumber: 68,
+                                                lineNumber: 120,
                                                 columnNumber: 19
                                             }, this)),
                                         property.services.length > 3 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$proyectos$2f$InmobiliariaLibra$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -384,36 +432,36 @@ function PropertyCard({ property }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                            lineNumber: 73,
+                                            lineNumber: 125,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                                    lineNumber: 66,
+                                    lineNumber: 118,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                            lineNumber: 64,
+                            lineNumber: 116,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-                    lineNumber: 32,
+                    lineNumber: 84,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-            lineNumber: 18,
+            lineNumber: 70,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/proyectos/InmobiliariaLibra/components/property-card.tsx",
-        lineNumber: 17,
+        lineNumber: 69,
         columnNumber: 5
     }, this);
 }
