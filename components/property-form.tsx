@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
+import Swal from "sweetalert2"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -190,17 +191,38 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
       })
 
       if (response.ok) {
+        await Swal.fire({
+          icon: "success",
+          title: property ? "¡Propiedad actualizada!" : "¡Propiedad creada!",
+          text: property ? "La propiedad se actualizó correctamente" : "La propiedad se creó correctamente",
+          confirmButtonText: "Ver propiedades",
+          confirmButtonColor: "#10b981",
+        })
+        
         if (onSubmit) {
           onSubmit()
         } else {
-          router.push("/admin")
+          router.push("/propiedades")
         }
       } else {
-        alert("Error al guardar la propiedad")
+        const errorData = await response.json()
+        await Swal.fire({
+          icon: "error",
+          title: "Error al guardar",
+          text: errorData.error || "No se pudo guardar la propiedad. Intenta nuevamente.",
+          confirmButtonText: "Entendido",
+          confirmButtonColor: "#ef4444",
+        })
       }
     } catch (error) {
       console.error("[v0] Error submitting property:", error)
-      alert("Error al guardar la propiedad")
+      await Swal.fire({
+        icon: "error",
+        title: "Error inesperado",
+        text: "Ocurrió un error al guardar la propiedad. Verifica tu conexión e intenta nuevamente.",
+        confirmButtonText: "Entendido",
+        confirmButtonColor: "#ef4444",
+      })
     } finally {
       setLoading(false)
     }
