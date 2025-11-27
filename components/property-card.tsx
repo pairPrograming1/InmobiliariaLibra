@@ -3,18 +3,23 @@
 import type { PropertyWithDetails } from "@/lib/types"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Maximize2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { MapPin, Maximize2, Edit } from "lucide-react"
 import Link from "next/link"
 
 interface PropertyCardProps {
   property: PropertyWithDetails
+  showActions?: boolean
 }
 
-export function PropertyCard({ property }: PropertyCardProps) {
+export function PropertyCard({ property, showActions = false }: PropertyCardProps) {
   const mainImage = property.images[0]?.cloudinary_url || "/departamento.jpg"
 
+  const CardWrapper = showActions ? "div" : Link
+  const wrapperProps = showActions ? {} : { href: `/propiedades/${property.id}` }
+
   return (
-    <Link href={`/propiedades/${property.id}`}>
+    <CardWrapper {...wrapperProps}>
       <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 border-border h-full">
         <div className="relative h-48 md:h-64 overflow-hidden">
           <img
@@ -77,8 +82,24 @@ export function PropertyCard({ property }: PropertyCardProps) {
               </div>
             </div>
           )}
+
+          {showActions && (
+            <div className="mt-4 pt-4 border-t border-border flex gap-2">
+              <Link href={`/admin/propiedades/${property.id}/editar`} className="flex-1">
+                <Button variant="outline" className="w-full gap-2" size="sm">
+                  <Edit className="h-4 w-4" />
+                  Editar
+                </Button>
+              </Link>
+              <Link href={`/propiedades/${property.id}`} className="flex-1">
+                <Button variant="default" className="w-full" size="sm">
+                  Ver
+                </Button>
+              </Link>
+            </div>
+          )}
         </CardContent>
       </Card>
-    </Link>
+    </CardWrapper>
   )
 }
