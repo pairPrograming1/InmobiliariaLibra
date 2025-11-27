@@ -3,7 +3,7 @@ import type { PropertyWithDetails, Property } from "@/lib/types"
 import { PropertyCard } from "@/components/property-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Building2, Plus } from "lucide-react"
+import { Building2, Plus, Settings } from "lucide-react"
 
 async function getProperties(): Promise<PropertyWithDetails[]> {
   try {
@@ -67,12 +67,20 @@ export default async function PropiedadesPage() {
                 </p>
               </div>
             </div>
-            <Link href="/admin" className="w-full sm:w-auto">
-              <Button className="gap-2 w-full sm:w-auto" size="sm" md-size="default">
-                <Plus className="h-4 w-4" />
-                <span className="text-xs md:text-base">Nueva Propiedad</span>
-              </Button>
-            </Link>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Link href="/admin/propiedades" className="w-full sm:w-auto">
+                <Button variant="outline" className="gap-2 w-full sm:w-auto" size="sm">
+                  <Settings className="h-4 w-4" />
+                  <span className="text-xs md:text-base">Vista Admin</span>
+                </Button>
+              </Link>
+              <Link href="/admin" className="w-full sm:w-auto">
+                <Button className="gap-2 w-full sm:w-auto" size="sm">
+                  <Plus className="h-4 w-4" />
+                  <span className="text-xs md:text-base">Nueva Propiedad</span>
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </header>
