@@ -66,28 +66,25 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
 
     setUploading(true)
     try {
-      const newPreviews: string[] = []
-      Array.from(files).forEach((file) => {
-        const previewUrl = URL.createObjectURL(file)
-        newPreviews.push(previewUrl)
-      })
-      setImagePreviews((prev) => [...prev, ...newPreviews])
-
+      // Primero subir a Cloudinary
       const uploadPromises = Array.from(files).map(async (file) => {
-        const formData = new FormData()
-        formData.append("file", file)
+        const uploadFormData = new FormData()
+        uploadFormData.append("file", file)
 
         const response = await fetch("/api/upload", {
           method: "POST",
-          body: formData,
+          body: uploadFormData,
         })
 
         if (!response.ok) {
           const error = await response.json()
+          console.error("Upload error response:", error)
           throw new Error(error.error || "Failed to upload image")
         }
 
-        return await response.json()
+        const result = await response.json()
+        console.log("Upload success:", result)
+        return result
       })
 
       const results = await Promise.all(uploadPromises)
@@ -95,33 +92,28 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
       const newImages = results.map((result) => ({
         cloudinary_url: result.secure_url,
         cloudinary_public_id: result.public_id,
+        display_order: 0,
       }))
 
+      // Actualizar el estado con las nuevas imágenes
       setFormData((prev) => ({
         ...prev,
         images: [...prev.images, ...newImages],
       }))
 
-      setImagePreviews((prev) => {
-        const oldPreviews = prev.slice(0, prev.length - newPreviews.length)
-        newPreviews.forEach((url) => URL.revokeObjectURL(url))
-        return [...oldPreviews, ...newImages.map((img) => img.cloudinary_url)]
-      })
+      // Actualizar las previsualizaciones con las URLs de Cloudinary
+      setImagePreviews((prev) => [...prev, ...newImages.map((img) => img.cloudinary_url)])
     } catch (error) {
       console.error("Error uploading images:", error)
       alert(`Error al subir imágenes: ${error instanceof Error ? error.message : "Error desconocido"}`)
-      setImagePreviews((prev) => prev.slice(0, formData.images.length))
     } finally {
       setUploading(false)
+      // Limpiar el input para permitir subir el mismo archivo nuevamente
+      e.target.value = ""
     }
   }
 
   const removeImage = (index: number) => {
-    const preview = imagePreviews[index]
-    if (preview?.startsWith("blob:")) {
-      URL.revokeObjectURL(preview)
-    }
-
     setFormData((prev) => ({
       ...prev,
       images: prev.images.filter((_, i) => i !== index),
