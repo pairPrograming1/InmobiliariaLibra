@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
         const image = images[i]
         await sql`
           INSERT INTO property_images (property_id, cloudinary_url, cloudinary_public_id, display_order)
-          VALUES (${property.id}, ${image.cloudinary_url}, ${image.cloudinary_public_id}, ${i})
+          VALUES (${property.id}, ${image.cloudinary_url || image.url}, ${image.cloudinary_public_id || image.public_id}, ${i})
         `
       }
     }
