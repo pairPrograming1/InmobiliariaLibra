@@ -1,4 +1,6 @@
 import type { PropertyWithDetails } from "@/lib/types"
+import { sql } from "@/lib/db"
+import type { PropertyWithDetails, Property } from "@/lib/types"
 import { PropertyCard } from "@/components/property-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -6,25 +8,35 @@ import { Building2, Plus, Settings } from "lucide-react"
 
 async function getProperties(): Promise<PropertyWithDetails[]> {
   try {
-    // Build absolute URL for API call
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-    const host = process.env.VERCEL_URL || 'localhost:3000'
-    const url = `${protocol}://${host}/api/properties`
-    
-    const response = await fetch(url, {
-      cache: 'no-store',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    
-    if (!response.ok) {
-      console.error('[v0] API response not ok:', response.status, response.statusText)
-      throw new Error(`Failed to fetch properties: ${response.status}`)
-    }
-    
-    const data = await response.json()
-    return data
+    const propertiesRows = await sql<Property[]>`
+      SELECT * FROM properties ORDER BY created_at DESC
+    `
+    const properties = propertiesRows as unknown as Property[]
+
+    const propertiesWithDetails = await Promise.all(
+      properties.map(async (property) => {
+        const rooms = await sql`
+          SELECT * FROM rooms WHERE property_id = ${property.id}
+        `
+        const images = await sql`
+          SELECT * FROM property_images WHERE property_id = ${property.id} ORDER BY display_order
+        `
+        const services = await sql`
+          SELECT s.* FROM services s
+          JOIN property_services ps ON s.id = ps.service_id
+          WHERE ps.property_id = ${property.id}
+        `
+
+        return {
+          ...property,
+          rooms,
+          images,
+          services,
+        } as PropertyWithDetails
+      }),
+    )
+
+    return propertiesWithDetails
   } catch (error) {
     console.error("[v0] Error fetching properties:", error)
     return []
