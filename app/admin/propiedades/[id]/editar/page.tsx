@@ -14,9 +14,10 @@ async function getProperty(id: string): Promise<PropertyWithDetails | null> {
       return null
     }
 
-    const [property] = await sql<Property[]>`
+    const propertyArr = await sql<Property[]>`
       SELECT * FROM properties WHERE id = ${id}
     `
+    const property = propertyArr[0]
 
     if (!property) {
       return null
@@ -35,19 +36,12 @@ async function getProperty(id: string): Promise<PropertyWithDetails | null> {
     `
 
     return {
-      id: property.id,
-      title: property.title,
-      description: property.description,
-      square_meters: property.square_meters,
-      rental_price: property.rental_price,
-      expenses: property.expenses,
-      created_at: property.created_at,
-      updated_at: property.updated_at,
+      ...property,
       rooms,
       images,
       services,
       custom_services: property.custom_services ?? [],
-    } as PropertyWithDetails
+    }
   } catch (error) {
     console.error("[v0] Error fetching property:", error)
     return null
