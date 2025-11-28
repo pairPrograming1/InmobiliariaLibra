@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DeletePropertyButton } from "@/components/delete-property-button"
-import { MapPin, Maximize2, Edit } from "lucide-react"
+import { MapPin, Maximize2, Edit, Eye, Trash2 } from "lucide-react"
 import Link from "next/link"
 
 interface PropertyCardProps {
@@ -86,27 +86,26 @@ export function PropertyCard({ property, showActions = false }: PropertyCardProp
           )}
 
           {showActions && (
-            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-border space-y-2">
-              <div className="flex gap-2">
-                <Link href={`/admin/propiedades/${property.id}/editar`} className="flex-1">
-                  <Button variant="outline" className="w-full gap-2" size="sm">
+            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-border">
+              <div className="flex gap-2 justify-center">
+                <Link href={`/propiedades/${property.id}`}>
+                  <Button variant="default" size="icon" title="Ver propiedad">
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href={`/admin/propiedades/${property.id}/editar`}>
+                  <Button variant="outline" size="icon" title="Editar propiedad">
                     <Edit className="h-4 w-4" />
-                    Editar
                   </Button>
                 </Link>
-                <Link href={`/propiedades/${property.id}`} className="flex-1">
-                  <Button variant="default" className="w-full" size="sm">
-                    Ver
-                  </Button>
-                </Link>
+                <DeletePropertyButton
+                  propertyId={property.id}
+                  propertyTitle={property.title}
+                  variant="destructive"
+                  size="icon"
+                  className=""
+                />
               </div>
-              <DeletePropertyButton
-                propertyId={property.id}
-                propertyTitle={property.title}
-                variant="destructive"
-                size="sm"
-                className="w-full"
-              />
             </div>
           )}
         </CardContent>

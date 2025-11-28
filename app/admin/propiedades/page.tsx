@@ -5,7 +5,7 @@ import type { PropertyWithDetails, Property } from "@/lib/types"
 import { PropertyCard } from "@/components/property-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Building2, Plus } from "lucide-react"
+import { Building2, Plus, BarChart3 } from "lucide-react"
 
 async function getProperties(): Promise<PropertyWithDetails[]> {
   try {
@@ -68,6 +68,12 @@ export default async function AdminPropertiesPage() {
               </div>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
+              <Link href="/admin/estadisticas" className="flex-1 sm:flex-none">
+                <Button variant="outline" className="gap-2 w-full" size="sm">
+                  <BarChart3 className="h-4 w-4" />
+                  <span className="hidden sm:inline">Estadísticas</span>
+                </Button>
+              </Link>
               <Link href="/propiedades" className="flex-1 sm:flex-none">
                 <Button variant="outline" className="gap-2 w-full" size="sm">
                   Ver sitio público

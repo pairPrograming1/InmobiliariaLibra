@@ -50,8 +50,8 @@ export default async function PropiedadesPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card sticky top-0 z-10 backdrop-blur-sm bg-card/95">
-        <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4">
+      <header className="border-b border-border sticky top-0 z-10 backdrop-blur-sm bg-card/95">
+        <div className="container mx-auto px-4 py-3 md:py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div className="flex items-center gap-2 sm:gap-3 flex-1">
               <Building2 className="h-5 sm:h-6 md:h-8 w-5 sm:w-6 md:w-8 text-primary shrink-0" />
