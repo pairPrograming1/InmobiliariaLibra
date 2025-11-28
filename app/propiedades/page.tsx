@@ -57,13 +57,13 @@ export default async function PropiedadesPage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card sticky top-0 z-10 backdrop-blur-sm bg-card/95">
-        <div className="container mx-auto px-4 py-3 md:py-4">
+        <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-            <div className="flex items-center gap-2 md:gap-3 flex-1">
-              <Building2 className="h-6 md:h-8 w-6 md:w-8 text-primary shrink-0" />
+            <div className="flex items-center gap-2 sm:gap-3 flex-1">
+              <Building2 className="h-5 sm:h-6 md:h-8 w-5 sm:w-6 md:w-8 text-primary shrink-0" />
               <div className="min-w-0 flex-1">
-                <h1 className="text-lg md:text-2xl font-bold text-foreground truncate">Propiedades en Alquiler</h1>
-                <p className="text-xs md:text-sm text-muted-foreground">
+                <h1 className="text-base sm:text-lg md:text-2xl font-bold text-foreground truncate">Propiedades en Alquiler</h1>
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {properties.length} {properties.length === 1 ? "propiedad disponible" : "propiedades disponibles"}
                 </p>
               </div>
@@ -87,12 +87,12 @@ export default async function PropiedadesPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-6 md:py-8">
+      <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
         {properties.length === 0 ? (
-          <div className="text-center py-12 md:py-20">
-            <Building2 className="h-12 md:h-16 w-12 md:w-16 text-muted-foreground mx-auto mb-4" />
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">No hay propiedades disponibles</h2>
-            <p className="text-sm md:text-base text-muted-foreground mb-6">Comienza agregando tu primera propiedad en alquiler</p>
+          <div className="text-center py-8 sm:py-12 md:py-20">
+            <Building2 className="h-10 sm:h-12 md:h-16 w-10 sm:w-12 md:w-16 text-muted-foreground mx-auto mb-3 sm:mb-4" />
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">No hay propiedades disponibles</h2>
+            <p className="text-sm md:text-base text-muted-foreground mb-4 sm:mb-6 px-4">Comienza agregando tu primera propiedad en alquiler</p>
             <Link href="/admin">
               <Button size="lg" className="gap-2">
                 <Plus className="h-5 w-5" />
