@@ -12,9 +12,10 @@ async function getProperties(): Promise<PropertyWithDetails[]> {
       return []
     }
 
-    const properties = await sql<Property[]>`
+    const propertiesRows = await sql<Property[]>`
       SELECT * FROM properties ORDER BY created_at DESC
     `
+    const properties = propertiesRows as unknown as Property[]
 
     const propertiesWithDetails = await Promise.all(
       properties.map(async (property) => {
