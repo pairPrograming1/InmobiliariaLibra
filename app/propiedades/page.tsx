@@ -1,5 +1,7 @@
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 import { sql } from "@/lib/db"
-import type { PropertyWithDetails, Property } from "@/lib/types"
+import type { Property, PropertyWithDetails } from "@/lib/types"
 import { PropertyCard } from "@/components/property-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -7,11 +9,6 @@ import { Building2, Plus, Settings } from "lucide-react"
 
 async function getProperties(): Promise<PropertyWithDetails[]> {
   try {
-    if (!sql) {
-      console.log("Database not configured yet")
-      return []
-    }
-
     const propertiesRows = await sql<Property[]>`
       SELECT * FROM properties ORDER BY created_at DESC
     `
@@ -43,9 +40,6 @@ async function getProperties(): Promise<PropertyWithDetails[]> {
     return propertiesWithDetails
   } catch (error) {
     console.error("[v0] Error fetching properties:", error)
-    console.log(
-      "Database connection failed. Make sure PostgreSQL is running and InmobiliariaLibra database exists.",
-    )
     return []
   }
 }
