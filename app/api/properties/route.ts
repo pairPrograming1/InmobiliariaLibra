@@ -96,6 +96,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, property })
   } catch (error) {
     console.error("[v0] Error creating property:", error)
-    return NextResponse.json({ error: "Error creating property" }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : "Unknown error"
+    return NextResponse.json({ 
+      error: "Error creating property", 
+      details: errorMessage,
+      stack: error instanceof Error ? error.stack : undefined
+    }, { status: 500 })
   }
 }

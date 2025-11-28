@@ -94,7 +94,6 @@ export function PropertyForm({ property, onSubmit }: PropertyFormProps) {
         }
 
         const result = await response.json()
-        console.log("Upload success:", result)
         return result
       })
 
